@@ -14,6 +14,10 @@
         <StackPanel Grid.Row="0" Spacing="10" Margin="0,0,0,10">
             <TextBlock Text="Выберите рецепты и укажите количество порций:" FontWeight="Bold"/>
 
+            <CheckBox Content="Выбрать все рецепты"
+                      IsChecked="{Binding SelectAll}"
+                      Margin="0,0,0,5"/>
+
             <ScrollViewer Height="200">
                 <ItemsControl ItemsSource="{Binding RecipeSelections}"
                               x:CompileBindings="False">
@@ -38,6 +42,11 @@
             <Button Content="Сформировать список"
                     Command="{Binding GenerateShoppingListCommand}"
                     HorizontalAlignment="Left"/>
+
+            <Button Content="Просмотреть"
+                    Command="{Binding ViewResultCommand}"
+                    HorizontalAlignment="Left"/>
+
             <Button Content="Экспорт в TXT"
                     Command="{Binding ExportCommand}"
                     HorizontalAlignment="Left"/>

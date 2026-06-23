@@ -62,6 +62,7 @@ public partial class RecipeListViewModel : ObservableObject
     private void LoadTags()
     {
         AllTags.Clear();
+        AllTags.Add(new Tag { Id = "", Name = "Все теги" });
         foreach (var tag in _tagService.GetAll())
         {
             AllTags.Add(tag);
@@ -119,7 +120,7 @@ public partial class RecipeListViewModel : ObservableObject
             );
         }
 
-        if (selectedTag != null)
+        if (selectedTag != null && !string.IsNullOrEmpty(selectedTag.Id))
         {
             filtered = filtered.Where(r => r.Tags.Contains(selectedTag.Id));
         }

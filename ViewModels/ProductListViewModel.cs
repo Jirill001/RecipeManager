@@ -35,11 +35,12 @@ public partial class ProductListViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private void AddProduct()
+    private async Task AddProduct()
     {
         var product = new Product();
         _productService.Add(product);
         Products.Add(product);
+        await EditProduct(product);
     }
 
     [RelayCommand]

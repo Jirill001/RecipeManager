@@ -21,11 +21,12 @@ public partial class TagListViewModel : ObservableObject
     public ObservableCollection<Tag> Tags { get; } = new ObservableCollection<Tag>();
 
     [RelayCommand]
-    private void AddTag()
+    private async Task AddTag()
     {
         var tag = new Tag();
         _tagService.Add(tag);
         Tags.Add(tag);
+        await EditTag(tag);
     }
 
     [RelayCommand]

@@ -4,7 +4,7 @@
         x:Class="RecipeManager.Views.ProductEditWindow"
         x:DataType="vm:ProductEditViewModel"
         Title="Редактировать продукт"
-        Width="400" Height="300"
+        Width="400" Height="400"
         WindowStartupLocation="CenterOwner"
         Background="LightYellow">
 

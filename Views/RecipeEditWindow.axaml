@@ -40,16 +40,19 @@
                        Margin="0,5"/>
 
             <TextBlock Text="Теги:" FontWeight="Bold"/>
-            <ListBox ItemsSource="{Binding AvailableTags}"
-                     SelectionMode="Toggle"
-                     x:CompileBindings="False">
-                <ListBox.ItemTemplate>
-                    <DataTemplate x:DataType="vm:TagSelection">
-                        <CheckBox Content="{Binding Tag.Name}"
-                                  IsChecked="{Binding IsSelected}"/>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
+            <Expander Header="Теги" Margin="0,5">
+                <ScrollViewer Height="150">
+                    <ItemsControl ItemsSource="{Binding AvailableTags}"
+                                  x:CompileBindings="False">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate x:DataType="vm:TagSelection">
+                                <CheckBox Content="{Binding Tag.Name}"
+                                          IsChecked="{Binding IsSelected}"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </Expander>
 
             <Grid ColumnDefinitions="*,Auto">
                 <TextBlock Text="Ингредиенты:" FontWeight="Bold"/>

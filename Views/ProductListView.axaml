@@ -9,12 +9,14 @@
              x:Class="RecipeManager.Views.ProductListView"
              x:DataType="vm:ProductListViewModel">
 
-    <StackPanel Margin="10">
-        <Button Command="{Binding AddProductCommand}"
+    <Grid RowDefinitions="Auto,*" Margin="10">
+        <Button Grid.Row="0"
+                Command="{Binding AddProductCommand}"
                 Content="Добавить продукт"
                 Margin="0,0,0,10"/>
 
-        <ListBox ItemsSource="{Binding Products}"
+        <ListBox Grid.Row="1"
+                 ItemsSource="{Binding Products}"
                  SelectionMode="Single"
                  x:CompileBindings="False">
             <ListBox.ItemTemplate>
@@ -41,5 +43,5 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-    </StackPanel>
+    </Grid>
 </UserControl>

@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using RecipeManager.Models;
 using RecipeManager.Services;
+using RecipeManager.Views;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -35,6 +36,17 @@ public partial class ShoppingListViewModel : ObservableObject
                 Recipe = recipe,
                 DesiredServings = recipe.BaseServings > 0 ? recipe.BaseServings : 1
             });
+        }
+    }
+
+    [ObservableProperty]
+    private bool selectAll;
+
+    partial void OnSelectAllChanged(bool value)
+    {
+        foreach (var selection in RecipeSelections)
+        {
+            selection.IsSelected = value;
         }
     }
 
@@ -116,6 +128,33 @@ public partial class ShoppingListViewModel : ObservableObject
         }
     }
 
+    [RelayCommand]
+    private void ViewResult()
+    {
+        if (ShoppingItems.Count == 0) return;
+
+        var sb = new System.Text.StringBuilder();
+        sb.AppendLine("Список покупок");
+        sb.AppendLine("==============");
+        sb.AppendLine();
+        sb.AppendLine($"{"Продукт",-30} {"Кол-во",-10} {"Ед.",-6} {"Стоимость",-10}");
+        sb.AppendLine(new string('-', 56));
+
+        decimal total = 0;
+        foreach (var item in ShoppingItems)
+        {
+            sb.AppendLine($"{item.ProductName,-30} {item.Quantity,-10:F2} {item.Unit,-6} {item.Cost,-10:F2}");
+            total += item.Cost;
+        }
+
+        sb.AppendLine(new string('-', 56));
+        sb.AppendLine($"{"Итого:",-46} {total,-10:F2}");
+
+        var vm = new ShoppingListResultViewModel(sb.ToString());
+        var window = new ShoppingListResultWindow(vm);
+        window.ShowDialog(App.GetMainWindow());
+    }
+
     private double ConvertToBaseUnit(double quantity, string fromUnit, string toUnit, double productUnitQuantity)
     {
         if (string.IsNullOrEmpty(fromUnit) || string.IsNullOrEmpty(toUnit))
@@ -133,6 +172,12 @@ public partial class ShoppingListViewModel : ObservableObject
         if (fromUnit == "л" && toUnit == "мл") return quantity * 1000.0;
 
         return quantity;
+    }
+
+    public void Refresh()
+    {
+        RecipeSelections.Clear();
+        LoadRecipes();
     }
 }
 

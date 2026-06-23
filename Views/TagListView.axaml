@@ -9,12 +9,14 @@
              x:Class="RecipeManager.Views.TagListView"
              x:DataType="vm:TagListViewModel">
 
-    <StackPanel Margin="10">
-        <Button Command="{Binding AddTagCommand}"
+    <Grid RowDefinitions="Auto,*" Margin="10">
+        <Button Grid.Row="0"
+                Command="{Binding AddTagCommand}"
                 Content="Добавить тег"
                 Margin="0,0,0,10"/>
 
-        <ListBox ItemsSource="{Binding Tags}"
+        <ListBox Grid.Row="1"
+                 ItemsSource="{Binding Tags}"
                  SelectionMode="Single"
                  x:CompileBindings="False">
             <ListBox.ItemTemplate>
@@ -40,5 +42,5 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-    </StackPanel>
+    </Grid>
 </UserControl>

@@ -1,0 +1,19 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:RecipeManager.ViewModels"
+        x:Class="RecipeManager.Views.ShoppingListResultWindow"
+        x:DataType="vm:ShoppingListResultViewModel"
+        Title="Список покупок"
+        Width="600" Height="500"
+        WindowStartupLocation="CenterOwner">
+
+    <Grid Margin="15">
+        <TextBox Text="{Binding ResultText}"
+                 IsReadOnly="True"
+                 AcceptsReturn="True"
+                 TextWrapping="Wrap"
+                 FontFamily="Consolas"
+                 Background="White"
+                 Foreground="Black"/>
+    </Grid>
+</Window>

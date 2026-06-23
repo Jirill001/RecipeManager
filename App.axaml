@@ -2,39 +2,97 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              x:Class="RecipeManager.App"
              xmlns:local="using:RecipeManager"
-             RequestedThemeVariant="Default">
+             RequestedThemeVariant="Light">
+             
+    <Application.Resources>
+        <SolidColorBrush x:Key="SystemControlForegroundBaseHighBrush" Color="Black"/>
+        <SolidColorBrush x:Key="SystemControlForegroundBaseMediumBrush" Color="Black"/>
+        <SolidColorBrush x:Key="SystemControlForegroundBaseLowBrush" Color="#333333"/>
+        <SolidColorBrush x:Key="SystemControlHighlightForegroundBrush" Color="Black"/>
+        <SolidColorBrush x:Key="SystemControlForegroundAccentBrush" Color="Black"/>
+        <SolidColorBrush x:Key="SystemControlDisabledForegroundBrush" Color="Gray"/>
+    </Application.Resources>
 
     <Application.DataTemplates>
         <local:ViewLocator/>
     </Application.DataTemplates>
   
     <Application.Styles>
-    <FluentTheme />
-    <Style Selector="Window, UserControl">
-        <Setter Property="Background" Value="LightYellow"/>
-        <Setter Property="Foreground" Value="Black"/>
-    </Style>
-    <Style Selector="TextBlock">
-        <Setter Property="Foreground" Value="Black"/>
-    </Style>
-    <Style Selector="TextBox">
-        <Setter Property="Foreground" Value="Black"/>
-        <Setter Property="Background" Value="White"/>
-    </Style>
-    <Style Selector="Button">
-        <Setter Property="Foreground" Value="Black"/>
-    </Style>
-    <Style Selector="DataGridCell">
-        <Setter Property="Foreground" Value="Black"/>
-    </Style>
-    <Style Selector="ListBoxItem">
-        <Setter Property="Foreground" Value="Black"/>
-    </Style>
-    <Style Selector="ComboBox">
-        <Setter Property="Foreground" Value="Black"/>
-    </Style>
-    <Style Selector="CheckBox">
-        <Setter Property="Foreground" Value="Black"/>
-    </Style>
-</Application.Styles>
+        <FluentTheme />
+        
+        <Style Selector="Window, UserControl">
+            <Setter Property="Background" Value="LightYellow"/>
+            <Setter Property="Foreground" Value="Black"/>
+        </Style>
+        
+        <Style Selector="TextBlock">
+            <Setter Property="Foreground" Value="Black"/>
+        </Style>
+        
+        <Style Selector="TextBox">
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Background" Value="White"/>
+        </Style>
+        
+        <Style Selector="Button">
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Background" Value="#FFE4B5"/>
+        </Style>
+        <Style Selector="Button:pointerover">
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Background" Value="#FFDAB9"/>
+        </Style>
+        <Style Selector="Button:pressed">
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Background" Value="#FFC1A6"/>
+        </Style>
+        
+        <Style Selector="ListBoxItem">
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Background" Value="LightYellow"/>
+        </Style>
+        <Style Selector="ListBoxItem:pointerover">
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Background" Value="#FFFACD"/>
+        </Style>
+        <Style Selector="ListBoxItem:selected">
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Background" Value="#FFE4B5"/>
+        </Style>
+        
+        <Style Selector="ComboBox">
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Background" Value="White"/>
+        </Style>
+        <Style Selector="ComboBox:pointerover">
+            <Setter Property="Foreground" Value="Black"/>
+        </Style>
+        
+        <Style Selector="ComboBoxItem">
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Background" Value="LightYellow"/>
+        </Style>
+        <Style Selector="ComboBoxItem:pointerover">
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Background" Value="#FFFACD"/>
+        </Style>
+        <Style Selector="ComboBoxItem:selected">
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Background" Value="#FFE4B5"/>
+        </Style>
+        
+        <Style Selector="CheckBox">
+            <Setter Property="Foreground" Value="Black"/>
+        </Style>
+        <Style Selector="CheckBox:pointerover">
+            <Setter Property="Foreground" Value="Black"/>
+        </Style>
+        
+        <Style Selector="DataGridCell">
+            <Setter Property="Foreground" Value="Black"/>
+        </Style>
+        <Style Selector="DataGridCell:pointerover">
+            <Setter Property="Foreground" Value="Black"/>
+        </Style>
+    </Application.Styles>
 </Application>
