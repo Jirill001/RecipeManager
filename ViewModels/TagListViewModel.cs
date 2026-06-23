@@ -2,7 +2,9 @@
 using CommunityToolkit.Mvvm.Input;
 using RecipeManager.Models;
 using RecipeManager.Services;
+using RecipeManager.Views;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 
 namespace RecipeManager.ViewModels;
 
@@ -24,6 +26,19 @@ public partial class TagListViewModel : ObservableObject
         var tag = new Tag();
         _tagService.Add(tag);
         Tags.Add(tag);
+    }
+
+    [RelayCommand]
+    private async Task EditTag(Tag tag)
+    {
+        if (tag == null) return;
+
+        var editViewModel = new TagEditViewModel(tag);
+        var window = new TagEditWindow(editViewModel);
+        await window.ShowDialog(App.GetMainWindow());
+
+        _tagService.Update(tag);
+        LoadTags();
     }
 
     [RelayCommand]

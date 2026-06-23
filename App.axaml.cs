@@ -62,6 +62,9 @@ namespace RecipeManager
             services.AddTransient<TagListViewModel>();
             services.AddSingleton<RecipeService>();
             services.AddTransient<RecipeListViewModel>();
+            services.AddTransient<RecipeEditViewModel>();
+            services.AddTransient<ShoppingListViewModel>();
+            services.AddSingleton<ExportService>();
             ServiceProvider = services.BuildServiceProvider();
 
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)

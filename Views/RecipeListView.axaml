@@ -7,19 +7,42 @@
              mc:Ignorable="d"
              d:DesignWidth="800" d:DesignHeight="450"
              x:Class="RecipeManager.Views.RecipeListView"
-             x:DataType="vm:RecipeListViewModel">
+             x:DataType="vm:RecipeListViewModel"
+             Background="LightYellow">
 
-    <StackPanel Margin="10">
-        <Button Command="{Binding AddRecipeCommand}"
-                Content="Добавить рецепт"
-                Margin="0,0,0,10"/>
+    <Grid RowDefinitions="Auto,*" Margin="10">
+        <StackPanel Grid.Row="0" Spacing="8" Margin="0,0,0,10">
+        <TextBlock Text="Поиск:" FontSize="12" Foreground="Gray"/>
+        <TextBox Text="{Binding SearchText}"/>
 
-        <ListBox ItemsSource="{Binding Recipes}"
+        <StackPanel Orientation="Horizontal" Spacing="10">
+            <StackPanel>
+                <TextBlock Text="Фильтр по тегу:" FontSize="12" Foreground="Gray"/>
+                <ComboBox ItemsSource="{Binding AllTags}"
+                          SelectedItem="{Binding SelectedTag}"
+                          DisplayMemberBinding="{Binding Name}"
+                          Width="200"/>
+            </StackPanel>
+            <StackPanel>
+                <TextBlock Text="Сортировка:" FontSize="12" Foreground="Gray"/>
+                <ComboBox ItemsSource="{Binding SortOptions}"
+                          SelectedItem="{Binding SortBy}"
+                          Width="150"/>
+            </StackPanel>
+        </StackPanel>
+
+    <Button Content="+ Добавить рецепт"
+            Command="{Binding AddRecipeCommand}"
+            HorizontalAlignment="Left"/>
+</StackPanel>
+
+        <ListBox Grid.Row="1"
+                 ItemsSource="{Binding FilteredRecipes}"
                  SelectionMode="Single"
                  x:CompileBindings="False">
             <ListBox.ItemTemplate>
                 <DataTemplate x:DataType="Models:Recipe">
-                    <Grid ColumnDefinitions="*,Auto">
+                    <Grid ColumnDefinitions="*,Auto,Auto">
                         <StackPanel Grid.Column="0" Margin="5">
                             <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
                             <TextBlock Text="{Binding Description}"/>
@@ -27,6 +50,13 @@
                             <TextBlock Text="{Binding CookingTime, StringFormat='Время: {0} мин'}"/>
                         </StackPanel>
                         <Button Grid.Column="1"
+                                Command="{Binding DataContext.EditRecipeCommand, 
+                                    RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"
+                                CommandParameter="{Binding}"
+                                Content="Редактировать"
+                                Margin="5"
+                                VerticalAlignment="Center"/>
+                        <Button Grid.Column="2"
                                 Command="{Binding DataContext.DeleteRecipeCommand, 
                                     RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"
                                 CommandParameter="{Binding}"
@@ -37,5 +67,5 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-    </StackPanel>
+    </Grid>
 </UserControl>

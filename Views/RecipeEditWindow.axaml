@@ -1,0 +1,92 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:RecipeManager.ViewModels"
+        x:Class="RecipeManager.Views.RecipeEditWindow"
+        x:DataType="vm:RecipeEditViewModel"
+        Title="Редактор рецепта"
+        Width="700" Height="600"
+        WindowStartupLocation="CenterOwner"
+        Background="LightYellow">
+
+    <ScrollViewer>
+        <StackPanel Margin="15" Spacing="10">
+            <TextBlock Text="Название:"/>
+            <TextBox Text="{Binding Name}"/>
+
+            <TextBlock Text="Описание:"/>
+            <TextBox Text="{Binding Description}" Height="60" AcceptsReturn="True"/>
+
+            <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto" ColumnSpacing="10">
+                <StackPanel Grid.Row="0" Grid.Column="0">
+                    <TextBlock Text="Базовые порции:"/>
+                    <TextBox Text="{Binding BaseServings}"/>
+                </StackPanel>
+                <StackPanel Grid.Row="0" Grid.Column="1">
+                    <TextBlock Text="Время приготовления (мин):"/>
+                    <TextBox Text="{Binding CookingTime}"/>
+                </StackPanel>
+                <StackPanel Grid.Row="1" Grid.Column="0">
+                    <TextBlock Text="Рейтинг (0-5):"/>
+                    <TextBox Text="{Binding Rating}"/>
+                </StackPanel>
+                <StackPanel Grid.Row="1" Grid.Column="1">
+                    <TextBlock Text="Желаемые порции:"/>
+                    <TextBox Text="{Binding DesiredServings}"/>
+                </StackPanel>
+            </Grid>
+
+            <TextBlock Text="{Binding TotalCost, StringFormat='Итоговая стоимость: {0:F2} руб.'}"
+                       FontWeight="Bold"
+                       Margin="0,5"/>
+
+            <TextBlock Text="Теги:" FontWeight="Bold"/>
+            <ListBox ItemsSource="{Binding AvailableTags}"
+                     SelectionMode="Toggle"
+                     x:CompileBindings="False">
+                <ListBox.ItemTemplate>
+                    <DataTemplate x:DataType="vm:TagSelection">
+                        <CheckBox Content="{Binding Tag.Name}"
+                                  IsChecked="{Binding IsSelected}"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
+            <Grid ColumnDefinitions="*,Auto">
+                <TextBlock Text="Ингредиенты:" FontWeight="Bold"/>
+                <Button Grid.Column="1" Content="+ Добавить"
+                        Command="{Binding AddIngredientCommand}"/>
+            </Grid>
+
+            <ListBox ItemsSource="{Binding Ingredients}"
+                     x:CompileBindings="False">
+                <ListBox.ItemTemplate>
+                    <DataTemplate x:DataType="vm:IngredientEdit">
+                        <Grid ColumnDefinitions="*,Auto,Auto,Auto" ColumnSpacing="5" Margin="0,2">
+                            <ComboBox Grid.Column="0"
+                                      ItemsSource="{Binding DataContext.AllProducts, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                                      SelectedItem="{Binding SelectedProduct}"
+                                      DisplayMemberBinding="{Binding Name}"/>
+                            <TextBox Grid.Column="1" Width="70"
+                                     Text="{Binding Quantity}"/>
+                            <TextBox Grid.Column="2" Width="50"
+                                     Text="{Binding Unit}"/>
+                            <Button Grid.Column="3" Content="X"
+                                    Command="{Binding DataContext.RemoveIngredientCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                                    CommandParameter="{Binding}"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
+            <Button Content="Экспорт в TXT"
+                    Command="{Binding ExportCommand}"
+                    HorizontalAlignment="Center"
+                    Margin="0,5"/>
+
+            <Button Content="Сохранить"
+                    Command="{Binding SaveCommand}"
+                    HorizontalAlignment="Center"
+                    Margin="0,10"/>
+        </StackPanel>
+    </ScrollViewer>
+</Window>

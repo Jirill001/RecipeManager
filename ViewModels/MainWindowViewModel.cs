@@ -11,30 +11,23 @@ public partial class MainWindowViewModel : ObservableObject
     public ProductListViewModel ProductList { get; }
     public TagListViewModel TagList { get; }
     public RecipeListViewModel RecipeList { get; }
+    public ShoppingListViewModel ShoppingList { get; }
 
-    public MainWindowViewModel(ProductListViewModel productList, TagListViewModel tagList, RecipeListViewModel recipeList)
+    public MainWindowViewModel(
+        ProductListViewModel productList,
+        TagListViewModel tagList,
+        RecipeListViewModel recipeList,
+        ShoppingListViewModel shoppingList)
     {
         ProductList = productList;
         TagList = tagList;
         RecipeList = recipeList;
+        ShoppingList = shoppingList;
         currentView = productList;
     }
 
-    [RelayCommand]
-    private void ShowProducts()
-    {
-        CurrentView = ProductList;
-    }
-
-    [RelayCommand]
-    private void ShowTags()
-    {
-        CurrentView = TagList;
-    }
-
-    [RelayCommand]
-    private void ShowRecipes()
-    {
-        CurrentView = RecipeList;
-    }
+    [RelayCommand] private void ShowProducts() => CurrentView = ProductList;
+    [RelayCommand] private void ShowTags() => CurrentView = TagList;
+    [RelayCommand] private void ShowRecipes() => CurrentView = RecipeList;
+    [RelayCommand] private void ShowShoppingList() => CurrentView = ShoppingList;
 }

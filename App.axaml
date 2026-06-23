@@ -3,13 +3,38 @@
              x:Class="RecipeManager.App"
              xmlns:local="using:RecipeManager"
              RequestedThemeVariant="Default">
-             <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
 
     <Application.DataTemplates>
         <local:ViewLocator/>
     </Application.DataTemplates>
   
     <Application.Styles>
-        <FluentTheme />
-    </Application.Styles>
+    <FluentTheme />
+    <Style Selector="Window, UserControl">
+        <Setter Property="Background" Value="LightYellow"/>
+        <Setter Property="Foreground" Value="Black"/>
+    </Style>
+    <Style Selector="TextBlock">
+        <Setter Property="Foreground" Value="Black"/>
+    </Style>
+    <Style Selector="TextBox">
+        <Setter Property="Foreground" Value="Black"/>
+        <Setter Property="Background" Value="White"/>
+    </Style>
+    <Style Selector="Button">
+        <Setter Property="Foreground" Value="Black"/>
+    </Style>
+    <Style Selector="DataGridCell">
+        <Setter Property="Foreground" Value="Black"/>
+    </Style>
+    <Style Selector="ListBoxItem">
+        <Setter Property="Foreground" Value="Black"/>
+    </Style>
+    <Style Selector="ComboBox">
+        <Setter Property="Foreground" Value="Black"/>
+    </Style>
+    <Style Selector="CheckBox">
+        <Setter Property="Foreground" Value="Black"/>
+    </Style>
+</Application.Styles>
 </Application>

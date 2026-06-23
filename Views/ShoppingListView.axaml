@@ -1,0 +1,66 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:RecipeManager.ViewModels"
+             xmlns:controls="using:Avalonia.Controls"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="RecipeManager.Views.ShoppingListView"
+             x:DataType="vm:ShoppingListViewModel"
+             Background="LightYellow">
+
+    <Grid RowDefinitions="Auto,*" Margin="10">
+        <StackPanel Grid.Row="0" Spacing="10" Margin="0,0,0,10">
+            <TextBlock Text="Выберите рецепты и укажите количество порций:" FontWeight="Bold"/>
+
+            <ScrollViewer Height="200">
+                <ItemsControl ItemsSource="{Binding RecipeSelections}"
+                              x:CompileBindings="False">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate x:DataType="vm:RecipeSelection">
+                            <Grid ColumnDefinitions="Auto,*,Auto" Margin="0,3" ColumnSpacing="10">
+                                <CheckBox Grid.Column="0"
+                                          IsChecked="{Binding IsSelected}"/>
+                                <TextBlock Grid.Column="1"
+                                           Text="{Binding Recipe.Name}"
+                                           VerticalAlignment="Center"/>
+                                <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="5">
+                                    <TextBlock Text="Порций:" VerticalAlignment="Center"/>
+                                    <TextBox Text="{Binding DesiredServings}" Width="60"/>
+                                </StackPanel>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+
+            <Button Content="Сформировать список"
+                    Command="{Binding GenerateShoppingListCommand}"
+                    HorizontalAlignment="Left"/>
+            <Button Content="Экспорт в TXT"
+                    Command="{Binding ExportCommand}"
+                    HorizontalAlignment="Left"/>
+        </StackPanel>
+
+        <controls:DataGrid Grid.Row="1"
+                           ItemsSource="{Binding ShoppingItems}"
+                           AutoGenerateColumns="False"
+                           IsReadOnly="True">
+            <controls:DataGrid.Columns>
+                <controls:DataGridTextColumn Header="Продукт"
+                                             Binding="{Binding ProductName}"
+                                             Width="*"/>
+                <controls:DataGridTextColumn Header="Количество"
+                                             Binding="{Binding Quantity, StringFormat={}{0:F2}}"
+                                             Width="100"/>
+                <controls:DataGridTextColumn Header="Ед."
+                                             Binding="{Binding Unit}"
+                                             Width="60"/>
+                <controls:DataGridTextColumn Header="Стоимость"
+                                             Binding="{Binding Cost, StringFormat={}{0:F2}}"
+                                             Width="100"/>
+            </controls:DataGrid.Columns>
+        </controls:DataGrid>
+    </Grid>
+</UserControl>
