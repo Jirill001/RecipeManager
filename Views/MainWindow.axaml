@@ -10,6 +10,7 @@
         <StackPanel Orientation="Horizontal" Margin="10" Spacing="5">
             <Button Content="Продукты" Command="{Binding ShowProductsCommand}"/>
             <Button Content="Теги" Command="{Binding ShowTagsCommand}"/>
+            <Button Content="Рецепты" Command="{Binding ShowRecipesCommand}"/>
         </StackPanel>
 
         <ContentControl Content="{Binding CurrentView}" Margin="10"/>
