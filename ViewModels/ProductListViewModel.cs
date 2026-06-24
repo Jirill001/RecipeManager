@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using Avalonia.Controls;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using RecipeManager.Models;
 using RecipeManager.Services;
@@ -26,8 +27,9 @@ public partial class ProductListViewModel : ObservableObject
     {
         if (product == null) return;
 
-        var editViewModel = new ProductEditViewModel(product);
-        var window = new ProductEditWindow(editViewModel);
+        Window? window = null;
+        var editViewModel = new ProductEditViewModel(product, () => window?.Close());
+        window = new ProductEditWindow(editViewModel);
         await window.ShowDialog(App.GetMainWindow());
 
         _productService.Update(product);

@@ -6,6 +6,7 @@ using RecipeManager.Views;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using Avalonia.Controls;
 
 namespace RecipeManager.ViewModels;
 
@@ -42,7 +43,7 @@ public partial class RecipeListViewModel : ObservableObject
         _exportService = exportService;
 
         LoadRecipes();
-        LoadTags();
+        RefreshTags();
     }
 
     partial void OnSearchTextChanged(string value) => ApplyFilters();
@@ -59,7 +60,7 @@ public partial class RecipeListViewModel : ObservableObject
         ApplyFilters();
     }
 
-    private void LoadTags()
+    public void RefreshTags()
     {
         AllTags.Clear();
         AllTags.Add(new Tag { Id = "", Name = "Все теги" });
@@ -83,9 +84,10 @@ public partial class RecipeListViewModel : ObservableObject
     {
         if (recipe == null) return;
 
+        Window? window = null;
         var editViewModel = new RecipeEditViewModel(
-            recipe, _recipeService, _productService, _tagService, _exportService);
-        var window = new RecipeEditWindow(editViewModel);
+            recipe, _recipeService, _productService, _tagService, _exportService, () => window?.Close());
+        window = new RecipeEditWindow(editViewModel);
         await window.ShowDialog(App.GetMainWindow());
 
         _recipeService.Update(recipe);

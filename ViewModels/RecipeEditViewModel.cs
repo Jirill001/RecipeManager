@@ -47,13 +47,17 @@ public partial class RecipeEditViewModel : ObservableObject
 
     private readonly Recipe _recipe;
 
-    public RecipeEditViewModel(Recipe recipe, RecipeService recipeService, ProductService productService, TagService tagService, ExportService exportService)
+    private readonly Action _closeAction;
+
+    public RecipeEditViewModel(Recipe recipe, RecipeService recipeService, ProductService productService,
+        TagService tagService, ExportService exportService, Action closeAction)
     {
         _recipe = recipe;
         _recipeService = recipeService;
         _productService = productService;
         _tagService = tagService;
         _exportService = exportService;
+        _closeAction = closeAction;
         AllProducts = productService.GetAll();
 
         name = recipe.Name;
@@ -147,6 +151,8 @@ public partial class RecipeEditViewModel : ObservableObject
             .ToList();
 
         _recipeService.Update(_recipe);
+        _recipeService.Update(_recipe);
+        _closeAction?.Invoke();
     }
 
     [RelayCommand]

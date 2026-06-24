@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using Avalonia.Controls;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using RecipeManager.Models;
 using RecipeManager.Services;
@@ -34,8 +35,9 @@ public partial class TagListViewModel : ObservableObject
     {
         if (tag == null) return;
 
-        var editViewModel = new TagEditViewModel(tag);
-        var window = new TagEditWindow(editViewModel);
+        Window? window = null;
+        var editViewModel = new TagEditViewModel(tag, () => window?.Close());
+        window = new TagEditWindow(editViewModel);
         await window.ShowDialog(App.GetMainWindow());
 
         _tagService.Update(tag);

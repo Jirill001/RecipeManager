@@ -3,96 +3,149 @@
              x:Class="RecipeManager.App"
              xmlns:local="using:RecipeManager"
              RequestedThemeVariant="Light">
-             
+
     <Application.Resources>
-        <SolidColorBrush x:Key="SystemControlForegroundBaseHighBrush" Color="Black"/>
-        <SolidColorBrush x:Key="SystemControlForegroundBaseMediumBrush" Color="Black"/>
-        <SolidColorBrush x:Key="SystemControlForegroundBaseLowBrush" Color="#333333"/>
-        <SolidColorBrush x:Key="SystemControlHighlightForegroundBrush" Color="Black"/>
-        <SolidColorBrush x:Key="SystemControlForegroundAccentBrush" Color="Black"/>
-        <SolidColorBrush x:Key="SystemControlDisabledForegroundBrush" Color="Gray"/>
+        <!-- Системные цвета текста (делаем контрастными) -->
+        <SolidColorBrush x:Key="SystemControlForegroundBaseHighBrush" Color="#1E1E1E"/>
+        <SolidColorBrush x:Key="SystemControlForegroundBaseMediumBrush" Color="#1E1E1E"/>
+        <SolidColorBrush x:Key="SystemControlForegroundBaseLowBrush" Color="#2D2D2D"/>
+        <SolidColorBrush x:Key="SystemControlHighlightForegroundBrush" Color="#1E1E1E"/>
+        <SolidColorBrush x:Key="SystemControlForegroundAccentBrush" Color="#1E1E1E"/>
+        <SolidColorBrush x:Key="SystemControlDisabledForegroundBrush" Color="#888888"/>
+
+        <!-- Основные цвета темы -->
+        <SolidColorBrush x:Key="MainBackground" Color="#FDF5E6"/>   <!-- Более мягкий светло-жёлтый -->
+        <SolidColorBrush x:Key="CardBackground" Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="AccentColor" Color="#D2691E"/>      <!-- Шоколадный -->
+        <SolidColorBrush x:Key="AccentHover" Color="#CD853F"/>
+        <SolidColorBrush x:Key="AccentPressed" Color="#8B4513"/>
     </Application.Resources>
 
     <Application.DataTemplates>
         <local:ViewLocator/>
     </Application.DataTemplates>
-  
+
     <Application.Styles>
         <FluentTheme />
-        
+
+        <!-- Базовый стиль окон и элементов управления -->
         <Style Selector="Window, UserControl">
-            <Setter Property="Background" Value="LightYellow"/>
-            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Background" Value="{StaticResource MainBackground}"/>
+            <Setter Property="Foreground" Value="#1E1E1E"/>
+            <Setter Property="FontFamily" Value="Segoe UI, sans-serif"/>
         </Style>
-        
-        <Style Selector="TextBlock">
-            <Setter Property="Foreground" Value="Black"/>
-        </Style>
-        
-        <Style Selector="TextBox">
-            <Setter Property="Foreground" Value="Black"/>
-            <Setter Property="Background" Value="White"/>
-        </Style>
-        
+
+        <!-- Стили для кнопок -->
         <Style Selector="Button">
-            <Setter Property="Foreground" Value="Black"/>
-            <Setter Property="Background" Value="#FFE4B5"/>
+            <Setter Property="Background" Value="{StaticResource AccentColor}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Padding" Value="12,8"/>
+            <Setter Property="CornerRadius" Value="6"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
         </Style>
         <Style Selector="Button:pointerover">
-            <Setter Property="Foreground" Value="Black"/>
-            <Setter Property="Background" Value="#FFDAB9"/>
+            <Setter Property="Background" Value="{StaticResource AccentHover}"/>
         </Style>
         <Style Selector="Button:pressed">
-            <Setter Property="Foreground" Value="Black"/>
-            <Setter Property="Background" Value="#FFC1A6"/>
+            <Setter Property="Background" Value="{StaticResource AccentPressed}"/>
         </Style>
-        
+
+        <!-- Красная кнопка для удаления -->
+        <Style Selector="Button.DeleteButton">
+            <Setter Property="Background" Value="#CD5C5C"/>
+        </Style>
+        <Style Selector="Button.DeleteButton:pointerover">
+            <Setter Property="Background" Value="#F08080"/>
+        </Style>
+
+        <!-- Текстовые блоки -->
+        <Style Selector="TextBlock">
+            <Setter Property="Foreground" Value="#1E1E1E"/>
+        </Style>
+
+        <!-- Поля ввода -->
+        <Style Selector="TextBox">
+            <Setter Property="Foreground" Value="#1E1E1E"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="#D2B48C"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="4"/>
+            <Setter Property="Padding" Value="8,6"/>
+        </Style>
+        <Style Selector="TextBox:focus">
+            <Setter Property="BorderBrush" Value="{StaticResource AccentColor}"/>
+        </Style>
+
+        <!-- Стили для списков -->
+        <Style Selector="ListBox">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+        </Style>
         <Style Selector="ListBoxItem">
-            <Setter Property="Foreground" Value="Black"/>
-            <Setter Property="Background" Value="LightYellow"/>
+            <Setter Property="Foreground" Value="#1E1E1E"/>
+            <Setter Property="Background" Value="{StaticResource CardBackground}"/>
+            <Setter Property="BorderBrush" Value="#EEDDCC"/>
+            <Setter Property="BorderThickness" Value="0,0,0,1"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="CornerRadius" Value="4"/>
         </Style>
         <Style Selector="ListBoxItem:pointerover">
-            <Setter Property="Foreground" Value="Black"/>
-            <Setter Property="Background" Value="#FFFACD"/>
+            <Setter Property="Background" Value="#FDF0E0"/>
         </Style>
         <Style Selector="ListBoxItem:selected">
-            <Setter Property="Foreground" Value="Black"/>
-            <Setter Property="Background" Value="#FFE4B5"/>
+            <Setter Property="Background" Value="#F5DEB3"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
         </Style>
-        
+
+        <!-- Выпадающие списки -->
         <Style Selector="ComboBox">
-            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Foreground" Value="#1E1E1E"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="#D2B48C"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="4"/>
+            <Setter Property="Padding" Value="8,6"/>
+        </Style>
+        <Style Selector="ComboBoxItem">
+            <Setter Property="Foreground" Value="#1E1E1E"/>
             <Setter Property="Background" Value="White"/>
         </Style>
-        <Style Selector="ComboBox:pointerover">
-            <Setter Property="Foreground" Value="Black"/>
-        </Style>
-        
-        <Style Selector="ComboBoxItem">
-            <Setter Property="Foreground" Value="Black"/>
-            <Setter Property="Background" Value="LightYellow"/>
-        </Style>
         <Style Selector="ComboBoxItem:pointerover">
-            <Setter Property="Foreground" Value="Black"/>
-            <Setter Property="Background" Value="#FFFACD"/>
+            <Setter Property="Background" Value="#FDF0E0"/>
         </Style>
         <Style Selector="ComboBoxItem:selected">
-            <Setter Property="Foreground" Value="Black"/>
-            <Setter Property="Background" Value="#FFE4B5"/>
+            <Setter Property="Background" Value="#F5DEB3"/>
         </Style>
-        
+
+        <!-- Чекбоксы -->
         <Style Selector="CheckBox">
-            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Foreground" Value="#1E1E1E"/>
         </Style>
-        <Style Selector="CheckBox:pointerover">
-            <Setter Property="Foreground" Value="Black"/>
-        </Style>
-        
+
+        <!-- DataGrid -->
         <Style Selector="DataGridCell">
-            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Foreground" Value="#1E1E1E"/>
+            <Setter Property="Background" Value="White"/>
         </Style>
-        <Style Selector="DataGridCell:pointerover">
-            <Setter Property="Foreground" Value="Black"/>
+
+        <!-- Заголовки -->
+        <Style Selector="TextBlock.Heading">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Margin" Value="0,0,0,10"/>
+            <Setter Property="Foreground" Value="{StaticResource AccentColor}"/>
+        </Style>
+
+        <!-- Expander для тегов в редакторе рецепта -->
+        <Style Selector="Expander">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="#D2B48C"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="4"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="Margin" Value="0,5"/>
         </Style>
     </Application.Styles>
 </Application>

@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using RecipeManager.Models;
+using System;
 
 namespace RecipeManager.ViewModels;
 
@@ -19,10 +20,12 @@ public partial class ProductEditViewModel : ObservableObject
     private double unitQuantity = 1.0;
 
     private readonly Product _originalProduct;
+    private readonly Action _closeAction;
 
-    public ProductEditViewModel(Product product)
+    public ProductEditViewModel(Product product, Action closeAction)
     {
         _originalProduct = product;
+        _closeAction = closeAction;
         name = product.Name;
         price = product.Price;
         unit = product.Unit;
@@ -36,5 +39,6 @@ public partial class ProductEditViewModel : ObservableObject
         _originalProduct.Price = price;
         _originalProduct.Unit = unit;
         _originalProduct.UnitQuantity = unitQuantity;
+        _closeAction?.Invoke();
     }
 }

@@ -28,7 +28,12 @@ public partial class MainWindowViewModel : ObservableObject
 
     [RelayCommand] private void ShowProducts() => CurrentView = ProductList;
     [RelayCommand] private void ShowTags() => CurrentView = TagList;
-    [RelayCommand] private void ShowRecipes() => CurrentView = RecipeList;
+    [RelayCommand]
+    private void ShowRecipes()
+    {
+        RecipeList.RefreshTags();
+        CurrentView = RecipeList;
+    }
     [RelayCommand]
     private void ShowShoppingList()
     {
